@@ -1,240 +1,50 @@
 import { useState } from "react";
 import "./index.css";
 
-const skills = ["AWS", "Azure", "JavaScript", "React", "Node.js", "Express", "SQL", "Git", "GitHub"];
-const workshops = ["UI/UX Design", "Full Stack Development", "Cloud Computing", "AI Tools"];
-const navItems = ["About", "Skills", "Journey", "Work", "Contact"];
+const projects = [
+  { number: "01", type: "PRODUCT / WEB APP", title: "CloudNest", description: "A practical task dashboard that makes everyday work easier to see, manage, and move forward.", tags: ["React", "Node.js", "SQL"], tone: "yellow" },
+  { number: "02", type: "EXPERIMENT / CLOUD", title: "Deploying ideas", description: "Exploring the space between a finished interface and the reliable system that keeps it running.", tags: ["Azure", "Git", "DevOps"], tone: "blue" },
+];
 
-function ArrowUpRight({ size = 18 }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M7 17 17 7M8 7h9v9" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
+const capabilities = ["Frontend interfaces", "Cloud foundations", "Backend thinking", "Design systems", "Problem solving", "Continuous learning"];
 
-function ArrowDown({ size = 18 }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M12 5v14m-6-6 6 6 6-6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-function GithubIcon({ size = 19 }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M12 .7a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2.2c-3.3.7-4-1.4-4-1.4-.5-1.3-1.3-1.6-1.3-1.6-1.1-.8.1-.8.1-.8 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.4-1.3-5.4-5.8 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.6.1-3.2 0 0 1-.3 3.3 1.2a11.4 11.4 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.5-2.8 5.5-5.4 5.8.4.3.7 1 .7 1.9v2.8c0 .3.2.7.8.6A12 12 0 0 0 12 .7Z" />
-    </svg>
-  );
-}
-
-function MailIcon({ size = 19 }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" strokeWidth="1.8" />
-      <path d="m4 7 8 6 8-6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-function Sparkle({ size = 22 }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="m12 2 1.4 6.6L20 10l-6.6 1.4L12 18l-1.4-6.6L4 10l6.6-1.4L12 2Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-      <path d="m19 16 .6 2.4L22 19l-2.4.6L19 22l-.6-2.4L16 19l2.4-.6L19 16Z" fill="currentColor" />
-    </svg>
-  );
-}
+function Arrow() { return <span className="arrow">↗</span>; }
+function GithubIcon() { return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .7a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2.2c-3.3.7-4-1.4-4-1.4-.5-1.3-1.3-1.6-1.3-1.6-1.1-.8.1-.8.1-.8 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.4-1.3-5.4-5.8 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.6.1-3.2 0 0 1-.3 3.3 1.2a11.4 11.4 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.5-2.8 5.5-5.4 5.8.4.3.7 1 .7 1.9v2.8c0 .3.2.7.8.6A12 12 0 0 0 12 .7Z" /></svg>; }
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
-
-  const closeMenu = () => setMenuOpen(false);
-
+  const close = () => setMenuOpen(false);
   return (
-    <div className="site-shell">
-      <div className="grain" aria-hidden="true" />
-
-      <header className="site-header">
-        <a className="brand" href="#top" onClick={closeMenu} aria-label="Manushree Sane home">
-          <span className="brand-mark">MS</span>
-          <span className="brand-name">Manushree Sane</span>
-        </a>
-
-        <button
-          className="menu-toggle"
-          type="button"
-          aria-label="Toggle navigation"
-          aria-expanded={menuOpen}
-          onClick={() => setMenuOpen((open) => !open)}
-        >
-          <span />
-          <span />
-        </button>
-
-        <nav className={`main-nav ${menuOpen ? "is-open" : ""}`} aria-label="Main navigation">
-          {navItems.map((item) => (
-            <a key={item} href={`#${item.toLowerCase()}`} onClick={closeMenu}>
-              {item}
-            </a>
-          ))}
-          <a className="nav-github" href="https://github.com/ManushreeSane" target="_blank" rel="noreferrer">
-            <GithubIcon size={16} /> GitHub
-          </a>
+    <div className="portfolio">
+      <header className="topbar">
+        <a className="wordmark" href="#home" onClick={close}><span className="wordmark-dot" /> MANUSHREE / SANE</a>
+        <button className="menu-button" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle menu"><span /><span /></button>
+        <nav className={menuOpen ? "nav open" : "nav"}>
+          <a href="#about" onClick={close}>About</a><a href="#work" onClick={close}>Work</a><a href="#contact" onClick={close}>Contact</a>
+          <a className="nav-cta" href="mailto:sanemanushree@gmail.com" onClick={close}>Let&apos;s talk <Arrow /></a>
         </nav>
       </header>
 
-      <main id="top">
-        <section className="hero section-wrap" aria-labelledby="hero-title">
-          <div className="hero-copy reveal">
-            <p className="eyebrow"><span className="eyebrow-dot" /> Portfolio / 2025—27</p>
-            <h1 id="hero-title">Learning the cloud.<br /><em>Shipping with intent.</em></h1>
-            <p className="hero-lede">
-              I&apos;m <strong>Manushree Sane</strong>, an aspiring Cloud and DevOps Engineer building thoughtful web experiences and learning how to make them run better.
-            </p>
-            <div className="hero-actions">
-              <a className="button button-primary" href="#work">See my work <ArrowUpRight /></a>
-              <a className="button button-quiet" href="#contact">Let&apos;s connect <ArrowDown /></a>
-            </div>
-          </div>
-
-          <div className="hero-visual reveal reveal-delay" aria-label="Cloud and DevOps visual">
-            <div className="visual-orbit orbit-one" />
-            <div className="visual-orbit orbit-two" />
-            <div className="visual-core"><Sparkle size={30} /></div>
-            <span className="float-label label-cloud">CLOUD</span>
-            <span className="float-label label-build">BUILD</span>
-            <span className="float-label label-ship">SHIP</span>
-            <div className="visual-caption">
-              <span>01</span>
-              <p>From a working app<br />to a reliable deployment.</p>
-            </div>
-          </div>
+      <main id="home">
+        <section className="hero shell">
+          <div className="hero-intro"><p className="overline">Developer / Cloud enthusiast / Curious human</p><h1>Making<br /><i>useful</i><br />things.</h1><p className="hero-summary">Hi, I&apos;m Manushree — a developer interested in the details that make digital products feel simple, thoughtful, and dependable.</p><a className="underlined-link" href="#work">See selected work <Arrow /></a></div>
+          <div className="hero-art"><div className="art-ring ring-a" /><div className="art-ring ring-b" /><div className="art-block block-one">MS</div><div className="art-block block-two">01</div><div className="art-note">Currently learning<br /><b>how ideas scale.</b></div><div className="art-side-label">PORTFOLIO / 2025—27</div></div>
         </section>
 
-        <section className="signal-bar section-wrap" aria-label="Profile highlights">
-          <div className="signal-item"><span className="signal-number">01</span><span>Cloud computing</span></div>
-          <div className="signal-item"><span className="signal-number">02</span><span>Full-stack foundations</span></div>
-          <div className="signal-item"><span className="signal-number">03</span><span>Curious by default</span></div>
-        </section>
+        <div className="ticker"><div>OPEN TO OPPORTUNITIES</div><div>BUILD WITH INTENT</div><div>STAY CURIOUS</div><div>OPEN TO OPPORTUNITIES</div></div>
 
-        <section className="about-section section-wrap" id="about" aria-labelledby="about-title">
-          <div className="section-heading reveal">
-            <p className="eyebrow">A little context</p>
-            <h2 id="about-title">I like the part where<br /><span>ideas become systems.</span></h2>
-          </div>
-          <div className="about-content reveal reveal-delay">
-            <p className="large-copy">My path started with building web applications and grew into a fascination with what happens after the code works: deployment, automation, observability, and the small choices that make a digital product feel dependable.</p>
-            <div className="about-aside">
-              <div className="mini-stat"><strong>MCA</strong><span>Cloud Computing<br />2025 — 2027</span></div>
-              <div className="mini-stat"><strong>7.91</strong><span>BBA-CA CGPA<br />Completed 2025</span></div>
-            </div>
-          </div>
-        </section>
+        <section className="about shell" id="about"><div className="section-index">01 <span>ABOUT</span></div><div className="about-grid"><div><h2>A developer with a soft spot for <em>good details.</em></h2></div><div className="about-copy"><p>I like working across the whole shape of a project: understanding the idea, making the interface feel right, connecting the pieces, and learning what happens after launch.</p><p>My current focus is cloud computing and DevOps foundations, supported by a background in full-stack development and a habit of learning by building.</p><a className="round-link" href="mailto:sanemanushree@gmail.com">Say hello <Arrow /></a></div></div></section>
 
-        <section className="skills-section section-wrap" id="skills" aria-labelledby="skills-title">
-          <div className="section-heading section-heading-light reveal">
-            <p className="eyebrow">The toolkit</p>
-            <h2 id="skills-title">Things I&apos;m<br /><span>comfortable exploring.</span></h2>
-          </div>
-          <div className="skills-layout reveal reveal-delay">
-            <p className="skills-intro">A practical mix of cloud platforms, web technologies, and tools that help turn a concept into a project you can share.</p>
-            <div className="skill-cloud">
-              {skills.map((skill, index) => <span className={index < 2 ? "skill-pill skill-pill-featured" : "skill-pill"} key={skill}>{skill}</span>)}
-            </div>
-          </div>
-        </section>
+        <section className="capabilities shell"><div className="section-index">02 <span>CAPABILITIES</span></div><div className="capability-layout"><h2>Things I bring<br /><em>to the table.</em></h2><div className="capability-list">{capabilities.map((item, i) => <div className="capability" key={item}><span>0{i + 1}</span><strong>{item}</strong><Arrow /></div>)}</div></div></section>
 
-        <section className="journey-section section-wrap" id="journey" aria-labelledby="journey-title">
-          <div className="section-heading reveal">
-            <p className="eyebrow">The journey so far</p>
-            <h2 id="journey-title">Learning in<br /><span>public and practice.</span></h2>
-          </div>
-          <div className="journey-grid">
-            <div className="timeline reveal reveal-delay">
-              <article className="timeline-item current">
-                <div className="timeline-marker">02</div>
-                <div className="timeline-content">
-                  <p className="timeline-date">2025 — expected 2027</p>
-                  <h3>Master of Computer Applications</h3>
-                  <p>IMED, Bharati Vidyapeeth University</p>
-                  <span className="timeline-status">Currently pursuing</span>
-                </div>
-              </article>
-              <article className="timeline-item">
-                <div className="timeline-marker">01</div>
-                <div className="timeline-content">
-                  <p className="timeline-date">Completed 2025</p>
-                  <h3>BBA in Computer Applications</h3>
-                  <p>Sinhgad College</p>
-                  <span className="timeline-status">CGPA 7.91</span>
-                </div>
-              </article>
-            </div>
+        <section className="work shell" id="work"><div className="section-index">03 <span>SELECTED WORK</span></div><div className="work-heading"><h2>A few things<br /><em>in progress.</em></h2><p>Small projects, real questions, and a growing toolkit. Each one is a chance to make something clearer than it was before.</p></div><div className="project-grid">{projects.map((project) => <article className={`project ${project.tone}`} key={project.number}><div className="project-top"><span>{project.number}</span><span>{project.type}</span></div><div className="project-shape"><span>{project.number === "01" ? "CN" : "∞"}</span></div><h3>{project.title}</h3><p>{project.description}</p><div className="project-bottom"><div>{project.tags.map((tag) => <span key={tag}>{tag}</span>)}</div><a href="https://github.com/ManushreeSane" target="_blank" rel="noreferrer" aria-label={`View ${project.title}`}><Arrow /></a></div></article>)}</div></section>
 
-            <div className="credential-card reveal reveal-delay-more">
-              <div className="credential-top"><span className="credential-icon"><Sparkle size={19} /></span><span>Certification</span></div>
-              <h3>AI and Life &amp;<br />Employability Skills</h3>
-              <p>Magic Bus India Foundation</p>
-              <div className="credential-line" />
-              <span className="credential-complete">Completed <span>↗</span></span>
-            </div>
-          </div>
+        <section className="education shell"><div className="section-index">04 <span>THE FOUNDATION</span></div><div className="education-row"><div><p className="overline">Education</p><h2>Always becoming<br /><em>more capable.</em></h2></div><div className="education-details"><div><span>2025—27</span><strong>Master of Computer Applications</strong><small>Cloud Computing · IMED, Bharati Vidyapeeth University</small></div><div><span>COMPLETED 2025</span><strong>BBA in Computer Applications</strong><small>CGPA 7.91 · Sinhgad College</small></div></div></div></section>
 
-          <div className="workshops reveal reveal-delay-more">
-            <p className="eyebrow">Workshops</p>
-            <div className="workshop-row">{workshops.map((workshop) => <span key={workshop}>{workshop}</span>)}</div>
-          </div>
-        </section>
-
-        <section className="work-section section-wrap" id="work" aria-labelledby="work-title">
-          <div className="section-heading reveal">
-            <p className="eyebrow">Selected work</p>
-            <h2 id="work-title">One project.<br /><span>Many moving parts.</span></h2>
-          </div>
-          <article className="project-card reveal reveal-delay">
-            <div className="project-number">01 / PROJECT</div>
-            <div className="project-main">
-              <div>
-                <p className="project-kicker">CloudNest</p>
-                <h3>Task Dashboard</h3>
-              </div>
-              <a className="circle-link" href="https://github.com/ManushreeSane/Cloudnet" target="_blank" rel="noreferrer" aria-label="View CloudNest Task Dashboard on GitHub"><ArrowUpRight size={22} /></a>
-            </div>
-            <p className="project-description">A focused task management dashboard with an Express backend and SQL database. Add, update, and track tasks from one clear workspace — now shaped for deployment on Microsoft Azure App Service.</p>
-            <div className="project-footer">
-              <div className="project-tags"><span>JavaScript</span><span>Express.js</span><span>Node.js</span><span>SQL</span><span>Azure</span></div>
-              <a className="text-link" href="https://github.com/ManushreeSane/Cloudnet" target="_blank" rel="noreferrer">View on GitHub <ArrowUpRight size={16} /></a>
-            </div>
-          </article>
-        </section>
-
-        <section className="contact-section section-wrap" id="contact" aria-labelledby="contact-title">
-          <div className="contact-card reveal">
-            <div className="contact-copy">
-              <p className="eyebrow">Have an idea?</p>
-              <h2 id="contact-title">Let&apos;s make<br /><em>something useful.</em></h2>
-              <p>Whether it&apos;s a project, an opportunity, or a conversation about cloud and DevOps, my inbox is open.</p>
-            </div>
-            <div className="contact-actions">
-              <a className="contact-email" href="mailto:sanemanushree@gmail.com"><MailIcon /> sanemanushree@gmail.com <ArrowUpRight size={17} /></a>
-              <div className="contact-links">
-                <a href="https://github.com/ManushreeSane" target="_blank" rel="noreferrer"><GithubIcon size={17} /> GitHub</a>
-                <span className="linkedin-note">LinkedIn — not available</span>
-              </div>
-            </div>
-          </div>
-        </section>
+        <section className="contact shell" id="contact"><div className="contact-stamp">LET&apos;S<br />MAKE<br /><b>GOOD</b><br />WORK.</div><div className="contact-copy"><p className="overline">05 / CONTACT</p><h2>Have something<br /><em>in mind?</em></h2><p>I&apos;m always open to a good conversation, an interesting project, or an opportunity to build something that matters.</p><a className="contact-mail" href="mailto:sanemanushree@gmail.com">sanemanushree@gmail.com <Arrow /></a><div className="social"><a href="https://github.com/ManushreeSane" target="_blank" rel="noreferrer"><GithubIcon /> GitHub</a><span>Based in India</span></div></div></section>
       </main>
-
-      <footer className="site-footer section-wrap">
-        <span>© {new Date().getFullYear()} Manushree Sane</span>
-        <span>Built with curiosity &amp; React</span>
-        <a href="#top">Back to top ↑</a>
-      </footer>
+      <footer className="footer shell"><span>© {new Date().getFullYear()} Manushree Sane</span><span>Designed &amp; built with curiosity</span><a href="#home">Back to top ↑</a></footer>
     </div>
   );
 }
-
 export default App;
